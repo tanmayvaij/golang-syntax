@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { setItemAsync } from "expo-secure-store";
-import { login } from "../services/ApiService";
 import TextInput from "../components/TextInput";
 import { height, unitH, isIos } from "../utils/constant";
 import { PrimaryColors, Transparents } from "../theme/colors";
@@ -25,28 +24,15 @@ function LoginPage() {
 
   const signIn = async () => {
     try {
-      // login(username, password).then((data) => {
-      // console.log(data);
-      // if (data.hasOwnProperty('access')) {
-      //   setItemAsync("userToken", data.access)
-      //     .then(() => {
-      //       navigation.navigate("Home");
-      //     })
-      //     .catch((err) => {
-      //       console.log(err);
-      //     });
-      // } else {
-      //   setErrorMessage("Login failed. Please check your credentials.");
-      // }
-      // });
-
       axios
         .post("http://test.ecomdata.co.uk/api/token/", { username, password })
         .then((res) => {
           console.log(res);
+          setItemAsync("userToken", data.access).then(() => {
+            navigation.navigate("Home");
+          });
         })
         .catch((err) => console.log(err));
-
     } catch (error) {
       setErrorMessage("An error occurred during login. Please try again.");
     }
