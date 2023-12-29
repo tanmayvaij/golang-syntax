@@ -28,7 +28,7 @@ const AppContextProvider = (props) => {
   // ... Maintenance
   const [maintenanceDetails, setMaintenanceDetails] = useState(null);
 
-  const [blobs, setBlogs] = useState([]);
+  const [blobs, setBlobs] = useState([]);
 
   useEffect(() => {
     console.log("appcontenxt, jobType", jobType);
@@ -75,9 +75,9 @@ const AppContextProvider = (props) => {
     setIsWarrant,
     setJobTypes,
     blobs,
-    setBlogs,
+    setBlobs,
   };
-  
+
   return (
     <AppContext.Provider value={providerValue}>
       {props.children}

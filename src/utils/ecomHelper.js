@@ -1,22 +1,12 @@
-import { showMessage } from "react-native-flash-message";
+import { Alert } from "react-native";
 
 class EcomHelper {
   showInfoMessage(txt) {
-    showMessage({
-      message: txt,
-      type: "info",
-      position: "top",
-      floating: true,
-    });
+    Alert.alert("Info", txt, [{ text: "Ok", onPress: () => {} }]);
   }
 
   showSuccessMessage(txt) {
-    showMessage({
-      message: txt,
-      type: "success",
-      position: "top",
-      floating: true,
-    });
+    Alert.alert("Success", txt, [{ text: "Ok", onPress: () => {} }]);
   }
 
   getYears = (year) => {

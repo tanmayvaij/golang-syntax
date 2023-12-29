@@ -1,5 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
 import {
+  Alert,
   Button,
   Image,
   KeyboardAvoidingView,
@@ -19,12 +20,10 @@ import { AppContext } from "../../../context/AppContext";
 import BarcodeScanner from "../../../components/BarcodeScanner";
 
 import * as ExpoImagePicker from "expo-image-picker";
-import { useActionSheet } from "@expo/react-native-action-sheet";
 
 const alphanumericRegex = /^[a-zA-Z0-9]+$/;
 
 function ChatterBoxPage() {
-  const { showActionSheetWithOptions } = useActionSheet();
 
   const navigation = useNavigation();
   const appContext = useContext(AppContext);
@@ -103,23 +102,22 @@ function ChatterBoxPage() {
   };
 
   const handleImagePicker = () => {
-    showActionSheetWithOptions(
+    Alert.alert("Choose Image", "how to choose image ?", [
       {
-        options: ["Cancel", "Take Photo", "Choose from Gallery"],
-        destructiveButtonIndex: 2,
-        cancelButtonIndex: 0,
-        userInterfaceStyle: "dark",
+        text: "Cancel",
+        onPress: () => {},
+        style: "cancel",
       },
-      (buttonIndex) => {
-        if (buttonIndex === 0) {
-          // cancel action
-        } else if (buttonIndex === 1) {
-          takePhoto();
-        } else if (buttonIndex === 2) {
-          chooseFromGallery();
-        }
-      }
-    );
+      {
+        text: "Choose from gallery",
+        onPress: chooseFromGallery,
+      },
+      {
+        text: "Take photo",
+        onPress: takePhoto,
+      },
+      {},
+    ]);
   };
   const takePhoto = () => {
     const options = {
