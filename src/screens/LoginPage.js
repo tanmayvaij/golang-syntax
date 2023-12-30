@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   SafeAreaView,
   KeyboardAvoidingView,
@@ -11,11 +11,10 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { setItemAsync } from "expo-secure-store";
-import { login } from "../services/ApiService";
 import TextInput from "../components/TextInput";
 import { height, unitH, isIos } from "../utils/constant";
 import { PrimaryColors, Transparents } from "../theme/colors";
-import axios from "axios";
+import { AppContext } from "../context/AppContext";
 
 function LoginPage() {
   const [username, setUsername] = useState("");
@@ -23,30 +22,29 @@ function LoginPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const navigation = useNavigation();
 
-  const signIn = async () => {
+  const appContext = useContext(AppContext)
+
+  const signIn = () => {
     try {
-      // login(username, password).then((data) => {
-      // console.log(data);
-      // if (data.hasOwnProperty('access')) {
-      //   setItemAsync("userToken", data.access)
-      //     .then(() => {
-      //       navigation.navigate("Home");
-      //     })
-      //     .catch((err) => {
-      //       console.log(err);
-      //     });
-      // } else {
-      //   setErrorMessage("Login failed. Please check your credentials.");
-      // }
-      // });
-
-      axios
-        .post("http://test.ecomdata.co.uk/api/token/", { username, password })
+      fetch("https://test.ecomdata.co.uk/api/token/", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      })
         .then((res) => {
-          console.log(res);
+          return res.json();
         })
-        .catch((err) => console.log(err));
-
+        .then((data) => {
+          setItemAsync("userToken", data.access).then(() => {
+            appContext.setUserLogged(true)
+          });
+          console.log(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } catch (error) {
       setErrorMessage("An error occurred during login. Please try again.");
     }

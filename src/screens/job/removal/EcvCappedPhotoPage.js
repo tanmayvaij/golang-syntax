@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Alert,
   Button,
   Image,
   SafeAreaView,
@@ -15,11 +16,8 @@ import { TextType } from "../../../theme/typography";
 import EcomHelper from "../../../utils/ecomHelper";
 
 import * as ExpoImagePicker from "expo-image-picker";
-import { useActionSheet } from "@expo/react-native-action-sheet";
 
 export default function EcvCappedPhotoPage() {
-  const { showActionSheetWithOptions } = useActionSheet();
-
   const navigation = useNavigation();
   const [selectedImage, setSelectedImage] = useState(undefined);
 
@@ -44,23 +42,22 @@ export default function EcvCappedPhotoPage() {
   };
 
   const handleImagePicker = () => {
-    showActionSheetWithOptions(
+    Alert.alert("Choose Image", "how to choose image ?", [
       {
-        options: ["Cancel", "Take Photo", "Choose from Gallery"],
-        destructiveButtonIndex: 2,
-        cancelButtonIndex: 0,
-        userInterfaceStyle: "dark",
+        text: "Cancel",
+        onPress: () => {},
+        style: "cancel",
       },
-      (buttonIndex) => {
-        if (buttonIndex === 0) {
-          // cancel action
-        } else if (buttonIndex === 1) {
-          takePhoto();
-        } else if (buttonIndex === 2) {
-          chooseFromGallery();
-        }
-      }
-    );
+      {
+        text: "Choose from gallery",
+        onPress: chooseFromGallery,
+      },
+      {
+        text: "Take photo",
+        onPress: takePhoto,
+      },
+      {},
+    ]);
   };
   const takePhoto = () => {
     const options = {

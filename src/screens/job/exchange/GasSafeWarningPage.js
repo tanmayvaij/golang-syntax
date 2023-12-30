@@ -9,6 +9,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Modal
 } from "react-native";
 import { unitH, width } from "../../../utils/constant";
 import Header from "../../../components/Header";
@@ -17,7 +18,6 @@ import { TextInputWithTitle } from "../../../components/TextInput";
 import OptionalButton from "../../../components/OptionButton";
 import SignatureScreen from "react-native-signature-canvas";
 import { PrimaryColors } from "../../../theme/colors";
-import Modal from "react-native-modal";
 import EcomHelper from "../../../utils/ecomHelper";
 import { AppContext } from "../../../context/AppContext";
 
@@ -313,12 +313,13 @@ function GasSafeWarningPage() {
               />
             </View>
           </View>
-          <Modal isVisible={isModal}>
+          <Modal visible={isModal}>
             <View
               style={{
                 height: unitH * 250,
                 alignItems: "center",
                 justifyContent: "center",
+                marginTop: "50%",
               }}
             >
               <SignatureScreen

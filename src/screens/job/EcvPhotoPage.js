@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import {
+  Alert,
   Button,
   Image,
   SafeAreaView,
@@ -16,18 +17,16 @@ import { AppContext } from "../../context/AppContext";
 import EcomHelper from "../../utils/ecomHelper";
 
 import * as ExpoImagePicker from "expo-image-picker";
-import { useActionSheet } from "@expo/react-native-action-sheet";
 
 export default function EcvPhotoPage() {
   const navigation = useNavigation();
   const appContext = useContext(AppContext);
   const removedMeterDetails = appContext.removedMeterDetails;
   const jobType = appContext.jobType;
-  const pageTitle = jobType === "Install" ? "New Meter Details" : jobType; ///'Job Number: ECOM09134'
+  const pageTitle = jobType === "Install" ? "New Meter Details" : jobType;
   const [selectedImage, setSelectedImage] = useState(
     removedMeterDetails?.ecvPhoto
   );
-  const { showActionSheetWithOptions } = useActionSheet();
 
   console.log("EcvPhotoPage");
 
@@ -84,23 +83,22 @@ export default function EcvPhotoPage() {
   };
 
   const handleImagePicker = () => {
-    showActionSheetWithOptions(
+    Alert.alert("Choose Image", "how to choose image ?", [
       {
-        options: ["Cancel", "Take Photo", "Choose from Gallery"],
-        destructiveButtonIndex: 2,
-        cancelButtonIndex: 0,
-        userInterfaceStyle: "dark",
+        text: "Cancel",
+        onPress: () => {},
+        style: "cancel",
       },
-      (buttonIndex) => {
-        if (buttonIndex === 0) {
-          // cancel action
-        } else if (buttonIndex === 1) {
-          takePhoto();
-        } else if (buttonIndex === 2) {
-          chooseFromGallery();
-        }
-      }
-    );
+      {
+        text: "Choose from gallery",
+        onPress: chooseFromGallery,
+      },
+      {
+        text: "Take photo",
+        onPress: takePhoto,
+      },
+      {},
+    ]);
   };
   const takePhoto = () => {
     const options = {

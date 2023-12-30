@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import {
+  Alert,
   Button,
   Image,
   SafeAreaView,
@@ -14,11 +15,9 @@ import { useNavigation } from "@react-navigation/native";
 import { TextType } from "../../../theme/typography";
 import { AppContext } from "../../../context/AppContext";
 import EcomHelper from "../../../utils/ecomHelper";
-import { useActionSheet } from "@expo/react-native-action-sheet";
 import * as ExpoImagePicker from "expo-image-picker";
 
 function SitePhotoPage() {
-  const { showActionSheetWithOptions } = useActionSheet();
 
   const navigation = useNavigation();
   const appContext = useContext(AppContext);
@@ -61,9 +60,8 @@ function SitePhotoPage() {
     try {
       const response = await fetch(selectedImage);
       const blob = await response.blob();
-      appContext.setBlobs(prev => [ ...prev, blob ])
-    }
-    catch(err) {
+      appContext.setBlobs((prev) => [...prev, blob]);
+    } catch (err) {
       console.log(err);
     }
 
@@ -127,22 +125,22 @@ function SitePhotoPage() {
   };
 
   const handleImagePicker = () => {
-    showActionSheetWithOptions(
+    Alert.alert("Choose Image", "how to choose image ?", [
       {
-        options: ["Cancel", "Take Photo", "Choose from Gallery"],
-        destructiveButtonIndex: 2,
-        cancelButtonIndex: 0,
-        userInterfaceStyle: "dark",
+        text: "Cancel",
+        onPress: () => {},
+        style: "cancel",
       },
-      (buttonIndex) => {
-        if (buttonIndex === 0) {
-        } else if (buttonIndex === 1) {
-          takePhoto();
-        } else if (buttonIndex === 2) {
-          chooseFromGallery();
-        }
-      }
-    );
+      {
+        text: "Choose from gallery",
+        onPress: chooseFromGallery,
+      },
+      {
+        text: "Take photo",
+        onPress: takePhoto,
+      },
+      {},
+    ]);
   };
 
   return (

@@ -5,7 +5,7 @@ import { PrimaryColors } from "../theme/colors";
 import { EcomPressable as Button } from "../components/ImageButton";
 import Text from "../components/Text";
 import { useNavigation } from "@react-navigation/native";
-import { AppContext } from "../context";
+import { AppContext } from "../context/AppContext";
 import Header from "../components/Header";
 
 function JobTypePage() {
