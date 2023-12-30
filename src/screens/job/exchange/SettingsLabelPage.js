@@ -269,7 +269,7 @@ export default function SettingsLabelPage() {
         });
     }
 
-    // navigation.navigate("SubmitSuccessPage");
+    navigation.navigate("SubmitSuccessPage");
   };
 
   const handleImagePicker = () => {

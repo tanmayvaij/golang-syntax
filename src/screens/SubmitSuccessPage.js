@@ -6,7 +6,7 @@ const SubmitSuccessPage = () => {
   const navigation = useNavigation();
 
   return (
-    <View>
+    <View style={{ padding: 20 }}>
       <Text>SubmitSuccessPage</Text>
       <Button
         title="OK"
