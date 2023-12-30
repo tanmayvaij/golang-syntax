@@ -194,6 +194,7 @@ function MeterDetailsPage() {
 
   const barcodeRecognized = (codes) => {
     EcomHelper.showInfoMessage(codes.data);
+    console.log(codes);
     setIsModal(false);
     setSerialNumber(codes.data);
   };
@@ -465,17 +466,17 @@ function MeterDetailsPage() {
                   <Text> mbar</Text>
                 </View>
               </View>
-
             </View>
             <View style={styles.spacer} />
             <View style={styles.spacer} />
           </View>
-          <BarcodeScanner
-            isModal={isModal}
-            setIsModal={setIsModal}
-            cameraRef={camera}
-            barcodeRecognized={barcodeRecognized}
-          />
+          {isModal && (
+            <BarcodeScanner
+              setIsModal={setIsModal}
+              cameraRef={camera}
+              barcodeRecognized={barcodeRecognized}
+            />
+          )}
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

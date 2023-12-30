@@ -27,7 +27,6 @@ import * as ExpoImagePicker from "expo-image-picker";
 const alphanumericRegex = /^[a-zA-Z0-9]+$/;
 
 export default function CorrectorDetailsPage() {
-
   const appContext = useContext(AppContext);
   const navigation = useNavigation();
   const jobType = appContext.jobType;
@@ -118,9 +117,8 @@ export default function CorrectorDetailsPage() {
     try {
       const response = await fetch(selectedImage);
       const blob = await response.blob();
-      appContext.setBlobs(prev => [ ...prev, blob ])
-    }
-    catch(err) {
+      appContext.setBlobs((prev) => [...prev, blob]);
+    } catch (err) {
       console.log(err);
     }
     if (!serialNumber || serialNumber === "") {
@@ -179,11 +177,11 @@ export default function CorrectorDetailsPage() {
         appContext.setMeterDetails({
           ...meterDetails,
           corrector_loggerSerialNumber: serialNumber,
-        corrector_isMountingBracket: isMountingBracket,
-        corrector_manufacturer: manufacturer,
-        corrector_model: model,
-        corrector_loggerOwner: loggerOwner,
-        corrector_loggerImage: selectedImage,
+          corrector_isMountingBracket: isMountingBracket,
+          corrector_manufacturer: manufacturer,
+          corrector_model: model,
+          corrector_loggerOwner: loggerOwner,
+          corrector_loggerImage: selectedImage,
         });
 
         const isMeter = meterDetails?.isMeter;
@@ -206,7 +204,7 @@ export default function CorrectorDetailsPage() {
       });
       if (isStartRemoval) {
         const isMeter = removedMeterDetails?.isMeter;
-      if (isMeter) {
+        if (isMeter) {
           navigation.navigate("NewEcvPhotoPage");
         } else {
           navigation.navigate("RemovedMeterDetailsPage");
@@ -421,12 +419,13 @@ export default function CorrectorDetailsPage() {
               />
             </View>
           </View>
-          <BarcodeScanner
-            isModal={isModal}
-            setIsModal={setIsModal}
-            cameraRef={camera}
-            barcodeRecognized={readSerialNumber}
-          />
+          {isModal && (
+            <BarcodeScanner
+              setIsModal={setIsModal}
+              cameraRef={camera}
+              barcodeRecognized={readSerialNumber}
+            />
+          )}
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

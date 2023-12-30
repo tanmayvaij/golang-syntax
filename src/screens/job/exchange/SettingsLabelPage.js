@@ -27,7 +27,7 @@ export default function SettingsLabelPage() {
     if (token) {
       axiosConfig = {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
           Authorization: `Basic ${token}`,
         },
       };
@@ -51,7 +51,7 @@ export default function SettingsLabelPage() {
 
   const maintenanceDetails = appContext.maintenanceDetails;
 
-  const blobs = appContext.blobs
+  const blobs = appContext.blobs;
 
   const [selectedImage, setSelectedImage] = useState(
     standardDetails?.settingsLabelPhoto
@@ -74,16 +74,15 @@ export default function SettingsLabelPage() {
     try {
       const response = await fetch(selectedImage);
       const blob = await response.blob();
-      appContext.setBlobs(prev => [ ...prev, blob ])
-    }
-    catch(err) {
+      appContext.setBlobs((prev) => [...prev, blob]);
+    } catch (err) {
       console.log(err);
     }
 
     const formData = new FormData();
 
     blobs.forEach((blob, index) => {
-      formData.append(`image${index}`, blob, `image${index}.jpg`);  
+      formData.append(`image${index}`, blob, `image${index}.jpg`);
     });
 
     appContext.setStandardDetails({
@@ -97,7 +96,7 @@ export default function SettingsLabelPage() {
       /*
       siteDetails, meterDetails, regulatorDetails, standardDetails
       */
-      
+
       EcomHelper.showInfoMessage(
         "SiteDetails, MeterDetails, RegulatorDetails, and StandardDetails will be submitted"
       );
@@ -109,24 +108,26 @@ export default function SettingsLabelPage() {
         ...meterDetails,
         ...regulatorDetails,
         ...standardDetails,
-      }
+      };
 
-      formData.append("data", data)
+      formData.append("data", data);
 
-      axios
-        .post(
-          "http://test.ecomdata.co.uk/api/data/",
-          formData,
-          axiosConfig
-        )
-        .then((response) => {
-          // Handle the response data
-          console.log("Response:", response.data);
-        })
-        .catch((error) => {
-          // Handle errors
-          console.error("Error:", error.message);
-        });
+      console.log(JSON.stringify(formData, null, 1));
+
+      // axios
+      //   .post(
+      //     "http://test.ecomdata.co.uk/api/data/",
+      //     formData,
+      //     axiosConfig
+      //   )
+      //   .then((response) => {
+      //     // Handle the response data
+      //     console.log("Response:", response.data);
+      //   })
+      //   .catch((error) => {
+      //     // Handle errors
+      //     console.error("Error:", error.message);
+      //   });
     } else if (jobType === "Removal") {
       console.log("==== removedSiteDetails ====");
       console.log(removedSiteDetails);
@@ -144,16 +145,12 @@ export default function SettingsLabelPage() {
         ...removedSiteDetails,
         ...removedMeterDetails,
         ...standardDetails,
-      }
+      };
 
-      formData.append("data", data)
+      formData.append("data", data);
 
       axios
-        .post(
-          "http://test.ecomdata.co.uk/api/data/",
-          formData,
-          axiosConfig
-        )
+        .post("http://test.ecomdata.co.uk/api/data/", formData, axiosConfig)
         .then((response) => {
           // Handle the response data
           console.log("Response:", response.data);
@@ -188,16 +185,12 @@ export default function SettingsLabelPage() {
         ...meterDetails,
         ...regulatorDetails,
         ...standardDetails,
-      }
+      };
 
-      formData.append("data", data)
+      formData.append("data", data);
 
       axios
-        .post(
-          "http://test.ecomdata.co.uk/api/data/",
-          formData,
-          axiosConfig
-        )
+        .post("http://test.ecomdata.co.uk/api/data/", formData, axiosConfig)
         .then((response) => {
           // Handle the response data
           console.log("Response:", response.data);
@@ -226,16 +219,12 @@ export default function SettingsLabelPage() {
         ...removedMeterDetails,
         ...removedMeterDetails,
         ...standardDetails,
-      }
+      };
 
-      formData.append("data", data)
+      formData.append("data", data);
 
       axios
-        .post(
-          "http://test.ecomdata.co.uk/api/data/",
-          formData,
-          axiosConfig
-        )
+        .post("http://test.ecomdata.co.uk/api/data/", formData, axiosConfig)
         .then((response) => {
           // Handle the response data
           console.log("Response:", response.data);
@@ -257,23 +246,19 @@ export default function SettingsLabelPage() {
         "MaintenanceDetails, RemovedSiteDetails, RemovedMeterDetails, and StandardDetails will be submitted"
       );
 
-        const data = {
-          mprn: siteDetails?.mprn,
-          jobType: "Maintenance",
-          ...maintenanceDetails,
-          ...removedSiteDetails,
-          ...removedMeterDetails,
-          ...standardDetails,
-        }
+      const data = {
+        mprn: siteDetails?.mprn,
+        jobType: "Maintenance",
+        ...maintenanceDetails,
+        ...removedSiteDetails,
+        ...removedMeterDetails,
+        ...standardDetails,
+      };
 
-        formData.append("data", data)
+      formData.append("data", data);
 
       axios
-        .post(
-          "http://test.ecomdata.co.uk/api/data/",
-          formData,
-          axiosConfig
-        )
+        .post("http://test.ecomdata.co.uk/api/data/", formData, axiosConfig)
         .then((response) => {
           // Handle the response data
           console.log("Response:", response.data);
@@ -284,7 +269,7 @@ export default function SettingsLabelPage() {
         });
     }
 
-    navigation.navigate("SubmitSuccessPage");
+    // navigation.navigate("SubmitSuccessPage");
   };
 
   const handleImagePicker = () => {

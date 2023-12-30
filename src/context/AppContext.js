@@ -30,9 +30,11 @@ const AppContextProvider = (props) => {
 
   const [blobs, setBlobs] = useState([]);
 
+  const [userLogged, setUserLogged] = useState(false);
+
   useEffect(() => {
     console.log("appcontenxt, jobType", jobType);
-  }, [jobType]);
+  }, [jobType, userLogged]);
 
   const setJobTypes = async (job) => {
     setJobType(job);
@@ -76,6 +78,8 @@ const AppContextProvider = (props) => {
     setJobTypes,
     blobs,
     setBlobs,
+    userLogged,
+    setUserLogged,
   };
 
   return (

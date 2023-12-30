@@ -14,7 +14,7 @@ import Text from "../../components/Text";
 import Header from "../../components/Header";
 import OptionalButton from "../../components/OptionButton";
 import DailyView from "../../components/calendar/DailyView";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { MaterialCommunityIcons } from "@expo/vector-icons"
 
 export const sampleEvents = {
   ["2023-10-16"]: [

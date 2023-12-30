@@ -1,18 +1,16 @@
-import React from 'react';
-import {Modal, StyleSheet, TouchableOpacity, View} from 'react-native';
-// import {RNCamera} from 'react-native-camera';
-import { Camera } from "expo-camera"
-import { width} from '../utils/constant';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import React from "react";
+import { Modal, StyleSheet, TouchableOpacity, View } from "react-native";
+import { width } from "../utils/constant";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { BarCodeScanner } from "expo-barcode-scanner";
 
 const BarcodeScanner = ({
-  isModal,
   setIsModal,
   cameraRef,
   barcodeRecognized,
 }) => {
   return (
-    <Modal visible={isModal} transparent={true}>
+    <Modal transparent={true}>
       <View style={styles.container}>
         <View style={styles.closeButtonContainer}>
           <TouchableOpacity onPress={() => setIsModal(false)}>
@@ -23,16 +21,10 @@ const BarcodeScanner = ({
             />
           </TouchableOpacity>
         </View>
-        <Camera
+        <BarCodeScanner
           ref={cameraRef}
-          style={styles.camera}
           onBarCodeScanned={barcodeRecognized}
-          // barCodeTypes={[
-          //   RNCamera.Constants.BarCodeType.ean8,
-          //   RNCamera.Constants.BarCodeType.ean13,
-          //   RNCamera.Constants.BarCodeType.pdf417,
-          //   RNCamera.Constants.BarCodeType.code128,
-          // ]}
+          style={{ width: "100%", height: "60%" }}
         />
       </View>
     </Modal>
@@ -41,29 +33,29 @@ const BarcodeScanner = ({
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    width: "100%",
     flex: 1,
-    backgroundColor: 'rgba(64, 64, 64, 0.6)',
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignContent: 'center',
+    backgroundColor: "rgba(64, 64, 64, 0.6)",
+    alignItems: "center",
+    justifyContent: "center",
+    alignContent: "center",
   },
   closeButtonContainer: {
-    position: 'absolute',
+    position: "absolute",
     top: 65,
     right: 35,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   closeButtonIcon: {
     width: 30,
     height: 30,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   camera: {
     width: width * 0.8,
     height: 200,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
 });
 

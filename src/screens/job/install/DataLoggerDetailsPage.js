@@ -242,8 +242,6 @@ export default function DataLoggerDetailsPage() {
         const isMeter = removedMeterDetails?.isMeter;
         if (isCorrector) {
           navigation.navigate("CorrectorDetailsPage");
-        } else if (isAmr) {
-          navigation.navigate("AmrDetailsPage");
         } else if (isMeter) {
           navigation.navigate("NewEcvPhotoPage");
         } else {
@@ -505,12 +503,11 @@ export default function DataLoggerDetailsPage() {
               />
             </View>
           </View>
-          <BarcodeScanner
-            isModal={isModal}
+          {isModal && <BarcodeScanner
             setIsModal={setIsModal}
             cameraRef={camera}
             barcodeRecognized={readSerialNumber}
-          />
+          />}
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

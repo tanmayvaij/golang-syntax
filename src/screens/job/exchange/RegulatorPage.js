@@ -59,7 +59,7 @@ function RegulatorPage() {
       EcomHelper.showInfoMessage("Please scan regulator SN");
       return;
     }
-    if (serialNoExist===null) {
+    if (serialNoExist === null) {
       EcomHelper.showInfoMessage("Please answer if serial no exist");
       return;
     }
@@ -135,9 +135,10 @@ function RegulatorPage() {
   };
 
   const barcodeRecognized = (codes) => {
+    EcomHelper.showInfoMessage(codes.data);
+    console.log(codes);
     setIsModal(false);
     setSerialNumber(codes.data);
-    EcomHelper.showInfoMessage("Code ", codes.data);
   };
 
   const handleDateChange = (event, selectedDate) => {
@@ -328,12 +329,11 @@ function RegulatorPage() {
               </View>
             </View> */}
           </View>
-          <BarcodeScanner
-            isModal={isModal}
+          {isModal && <BarcodeScanner
             setIsModal={setIsModal}
             cameraRef={camera}
             onBarcodeRead={barcodeRecognized}
-          />
+          />}
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

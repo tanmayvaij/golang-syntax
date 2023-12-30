@@ -10,9 +10,8 @@ import {
   View,
 } from 'react-native';
 import Text from '../Text';
-import {width, height, unitH, unitW} from '../../utils/constant';
-import {EcomPressable as Button} from '../../components/ImageButton';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { unitH, unitW} from '../../utils/constant';
+import { MaterialCommunityIcons } from "@expo/vector-icons"
 
 export default function DailyView({
   selectedDate,

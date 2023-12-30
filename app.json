@@ -44,9 +44,9 @@
         }
       ],
       [
-        "expo-camera",
+        "expo-barcode-scanner",
         {
-          "cameraPermission": "Allow Ecom to access your camera."
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access camera."
         }
       ]
     ]
